@@ -6,7 +6,7 @@ import { getAuth } from 'https://www.gstatic.com/firebasejs/13.1.0/firebase-auth
 import { getFirestore } from 'https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyAx8TstI9Ys-1-7flUetUgRsFY1oLtpfCog',
+  apiKey: 'AIzaSyAx8TstI9Ys-1-7flUetRsFY1oLtpfCog',
   authDomain: 'workzenith-8cc11.firebaseapp.com',
   projectId: 'workzenith-8cc11',
   storageBucket: 'workzenith-8cc11.firebasestorage.app',
