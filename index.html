@@ -28,6 +28,8 @@
             <label><span data-i18n="auth.password">Password</span><input id="password" name="password" type="password" autocomplete="current-password" required minlength="6" /></label>
             <button class="button button-primary full-button" type="submit" data-i18n="auth.signin">Sign in securely</button>
           </form>
+          <div class="auth-provider-divider"><span data-i18n="auth.googleDivider">or sign in with</span></div>
+          <button id="google-login" class="button button-outline full-button" type="button" data-i18n="auth.google">Continue with Google</button>
           <div class="auth-links"><button id="recover-password" class="text-button" type="button" data-i18n="auth.recover">Forgot password?</button><button id="create-account" class="text-button" type="button" data-i18n="auth.create">Create account</button></div>
           <button id="resume-session" class="button button-outline full-button" type="button" data-i18n="auth.resume">Check existing cloud session</button>
           <p id="auth-message" class="form-message" role="status" aria-live="polite"></p>

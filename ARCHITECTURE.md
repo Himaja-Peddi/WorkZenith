@@ -2,6 +2,8 @@
 
 ## Current milestone
 
+Email/password and Google popup sign-in both use Firebase Authentication. A new Google identity without trusted role claims remains pending provisioning; the provider itself never assigns a role.
+
 Static HTML/CSS and native JavaScript ES modules, no framework or bundler. `js/app.js` routes between an authenticated cloud view and a separate, explicit demo view; `js/permissions.js` centralizes UI capability checks. `js/services/` contains Firebase Auth and organization data calls. `js/firebase.js` centralizes modular SDK initialization for project `workzenith-8cc11`. Demo fixtures are separate from cloud services, and failed cloud reads never use demo records. The Firebase JS SDK is pinned to 13.1.0 browser modules; Cloud Functions use Node.js 22 with the modular Admin SDK.
 
 ## Planned data model

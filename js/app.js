@@ -26,7 +26,7 @@ function setAuthMessage(message, isError = false) {
 }
 function setBusy(value) {
   state.busy = value;
-  document.querySelectorAll('#cloud-login button, #resume-session, #create-account, #recover-password').forEach((button) => { button.disabled = value; });
+  document.querySelectorAll('#cloud-login button, #google-login, #resume-session, #create-account, #recover-password').forEach((button) => { button.disabled = value; });
 }
 function firebaseError(error) {
   const messages = {
@@ -38,6 +38,12 @@ function firebaseError(error) {
     'auth/email-already-in-use': 'An account already exists for this email.',
     'auth/weak-password': 'Choose a password with at least six characters.',
     'auth/invalid-email': 'Enter a valid email address.',
+    'auth/operation-not-allowed': 'Google sign-in is not enabled for this Firebase project. Enable it in Firebase Authentication settings.',
+    'auth/unauthorized-domain': 'This site is not an authorized Firebase sign-in domain. Add its hostname in Firebase Authentication settings.',
+    'auth/popup-blocked': 'Your browser blocked the Google sign-in popup. Allow popups for this site and try again.',
+    'auth/popup-closed-by-user': 'Google sign-in was closed before it finished. Try again when ready.',
+    'auth/cancelled-popup-request': 'Another sign-in popup is already open. Finish or close it, then try again.',
+    'auth/account-exists-with-different-credential': 'An account already uses this email with another sign-in method. Sign in with that method or ask your administrator for help.',
     'permission-denied': 'Your account cannot read this organization data. Contact your administrator.'
   };
   return messages[error?.code] || error?.message || 'The request failed. Please try again.';
@@ -285,6 +291,7 @@ async function handleCloudAuth(operation) {
     let result;
     if (operation === 'signIn') result = await authModule.signInWithPassword($('#email').value, $('#password').value);
     else if (operation === 'create') result = await authModule.createAccount($('#email').value, $('#password').value);
+    else if (operation === 'google') result = await authModule.signInWithGoogle();
     else result = await authModule.getExistingCloudSession();
     if (!result.identity) {
       setAuthMessage('No existing Firebase session was found. Enter your organization account above.');
@@ -310,6 +317,7 @@ $('#create-account').addEventListener('click', () => {
   if ($('#email').value.trim() && $('#password').value.length >= 6) handleCloudAuth('create');
   else setAuthMessage('Enter a valid email and a password with at least six characters before creating an account.', true);
 });
+$('#google-login').addEventListener('click', () => handleCloudAuth('google'));
 $('#recover-password').addEventListener('click', async () => {
   if (!$('#email').value.trim()) return setAuthMessage('Enter your email address first so Firebase can send the recovery link.', true);
   setBusy(true);

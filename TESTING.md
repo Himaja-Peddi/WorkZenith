@@ -4,9 +4,10 @@
 
 - Repository inspection: only `.git` existed before implementation; Git working tree was clean.
 - `node --check` passed for application, services, functions and rules test JavaScript; `git diff --check` passed.
+- Google sign-in was added through Firebase `GoogleAuthProvider` and the sign-in page UI. The page can be checked locally, but the live OAuth exchange is **not verified** here; the Firebase Google provider must be enabled and the current hostname authorized.
 - Browser demo verified manually: construction worker check-in changed the state to checked-in; college worker and supervisor views showed assigned shift/site scope; a supervisor updated a safety report through allowed demo status flow; administrator view showed two college sites and three departments and added a session-only demo site. A college worker submitted a sample safety report. These demo changes were page-session data, not Firebase writes.
 - Automated Firebase Emulator rules tests: **not run**. The Firebase CLI and npm are unavailable in this environment, and dependencies/emulators are not installed.
-- Live Firebase sign-in, Firestore access, Functions deployment, and callable operations: **not verified**; no project services have been enabled or deployed from this workspace.
+- Live Firebase sign-in, Firestore access, Functions deployment, and callable operations: **not verified**. A Google account without trusted organization/role claims is held at the pending-provisioning screen until an administrator assigns its role.
 
 ## Current acceptance status
 

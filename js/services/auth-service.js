@@ -38,6 +38,15 @@ export async function signInWithPassword(email, password) {
   return { runtime: await getRuntime(), identity: mapIdentity(credential.user, token) };
 }
 
+export async function signInWithGoogle() {
+  const { auth, authSdk } = await getRuntime();
+  const provider = new authSdk.GoogleAuthProvider();
+  provider.setCustomParameters({ prompt: 'select_account' });
+  const credential = await authSdk.signInWithPopup(auth, provider);
+  const token = await authSdk.getIdTokenResult(credential.user, true);
+  return { runtime: await getRuntime(), identity: mapIdentity(credential.user, token) };
+}
+
 export async function createAccount(email, password) {
   const { auth, authSdk } = await getRuntime();
   const credential = await authSdk.createUserWithEmailAndPassword(auth, email.trim(), password);

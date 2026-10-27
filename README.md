@@ -9,7 +9,7 @@ Open this folder in VS Code and choose **Open with Live Server** on `index.html`
 ## Firebase setup
 
 1. The registered Firebase Web app configuration for project `workzenith-8cc11` is set in `js/firebase.js`. If using another project, replace those values from Firebase Console → Project settings → Your apps.
-2. In Firebase Console, enable Authentication → Email/Password and create the Firestore database. The web config identifies the project; Rules and trusted functions enforce authorization.
+2. In Firebase Console, enable Authentication → Sign-in method → Email/Password and Google, then create the Firestore database. Under Authentication → Settings → Authorized domains, add the hostname you use to open the app (for this preview, `127.0.0.1`; `localhost` is a separate hostname). Add your production hosting domain before launch. Firebase's Google provider handles its OAuth redirect through the configured `authDomain`.
 3. Create an organization document at `organizations/{organizationId}` with a name and industry (`construction`, `hospital`, `education`, or `factory`). Create its initial `sites/{siteId}` and `departments/{departmentId}` documents with the fields shown in [ARCHITECTURE.md](ARCHITECTURE.md). Use the Firebase Console or a trusted Admin SDK environment for initial tenant provisioning.
 4. Create the administrator's Firebase Authentication account. From a trusted workstation with Node.js 22 and Application Default Credentials for the project, run the admin bootstrap script. It assigns the custom claim and profile; browser clients cannot grant admin roles:
 
@@ -31,6 +31,8 @@ Open this folder in VS Code and choose **Open with Live Server** on `index.html`
    ```
 
 6. After deploying rules and functions, an organization admin can provision existing Authentication users as workers or supervisors, assign their sites/departments, edit their organization profile, add sites/departments, and create or cancel shifts. Admin role grants require the trusted bootstrap process.
+
+Google sign-in is available from the sign-in page through Firebase Authentication's Google provider. A first-time Google account is authenticated by Firebase but remains pending until a trusted administrator provisions its organization and role; Google sign-in never grants a worker or administrator role by itself. If Google login reports `auth/operation-not-allowed`, enable the Google provider. If it reports `auth/unauthorized-domain`, add the current hostname under Authorized domains. Popup sign-in also requires the browser to allow the popup.
 
 Firebase web config does not protect data. Security Rules, Authentication, trusted Cloud Functions, and appropriately scoped queries must enforce access.
 
